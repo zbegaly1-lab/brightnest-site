@@ -428,6 +428,228 @@
 
     footer .footer-links a:hover { color: var(--white); }
 
+    /* ─── CHAT WIDGET ─── */
+    .chat-fab {
+      position: fixed;
+      bottom: 1.8rem;
+      left: 1.8rem;
+      z-index: 999;
+      background: var(--teal);
+      color: var(--white);
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      box-shadow: 0 4px 20px rgba(26,158,143,.4);
+      cursor: pointer;
+      border: none;
+      transition: transform .2s, background .2s;
+    }
+    .chat-fab:hover { transform: scale(1.1); background: var(--teal-dk); }
+
+    .chat-fab .chat-badge {
+      position: absolute;
+      top: -4px; right: -4px;
+      background: var(--coral);
+      color: white;
+      font-size: .65rem;
+      font-weight: 700;
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      border: 2px solid var(--white);
+    }
+
+    .chat-window {
+      position: fixed;
+      bottom: 5.5rem;
+      left: 1.8rem;
+      z-index: 998;
+      width: 340px;
+      max-height: 520px;
+      background: var(--white);
+      border-radius: 18px;
+      box-shadow: 0 12px 40px rgba(0,0,0,.18);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transform: scale(.85) translateY(20px);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform .25s ease, opacity .25s ease;
+      transform-origin: bottom left;
+    }
+
+    .chat-window.open {
+      transform: scale(1) translateY(0);
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .chat-header {
+      background: var(--teal);
+      color: var(--white);
+      padding: 1rem 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+    }
+
+    .chat-header-avatar {
+      width: 36px; height: 36px;
+      background: rgba(255,255,255,.25);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .chat-header-info { flex: 1; }
+    .chat-header-info strong { display: block; font-size: .95rem; }
+    .chat-header-info span { font-size: .75rem; opacity: .85; }
+
+    .chat-close {
+      background: none; border: none; color: white;
+      font-size: 1.3rem; cursor: pointer; line-height: 1;
+      opacity: .8; transition: opacity .2s;
+    }
+    .chat-close:hover { opacity: 1; }
+
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: .6rem;
+      background: #f4f6f8;
+      min-height: 0;
+    }
+
+    .chat-messages::-webkit-scrollbar { width: 4px; }
+    .chat-messages::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
+
+    .msg {
+      max-width: 82%;
+      padding: .55rem .85rem;
+      border-radius: 14px;
+      font-size: .88rem;
+      line-height: 1.5;
+      word-break: break-word;
+    }
+
+    .msg.bot {
+      background: var(--white);
+      color: var(--text);
+      border-bottom-left-radius: 4px;
+      align-self: flex-start;
+      box-shadow: 0 1px 4px rgba(0,0,0,.07);
+    }
+
+    .msg.user {
+      background: var(--teal);
+      color: var(--white);
+      border-bottom-right-radius: 4px;
+      align-self: flex-end;
+    }
+
+    .msg.typing {
+      background: var(--white);
+      align-self: flex-start;
+      padding: .6rem 1rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,.07);
+    }
+
+    .typing-dots { display: flex; gap: 4px; align-items: center; height: 16px; }
+    .typing-dots span {
+      width: 7px; height: 7px;
+      background: var(--teal);
+      border-radius: 50%;
+      animation: dot-bounce .9s infinite ease-in-out;
+    }
+    .typing-dots span:nth-child(2) { animation-delay: .15s; }
+    .typing-dots span:nth-child(3) { animation-delay: .3s; }
+
+    @keyframes dot-bounce {
+      0%, 80%, 100% { transform: translateY(0); opacity: .5; }
+      40% { transform: translateY(-5px); opacity: 1; }
+    }
+
+    .chat-quick-btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .4rem;
+      padding: .6rem 1rem;
+      background: #f4f6f8;
+      border-top: 1px solid #e8e8e8;
+    }
+
+    .quick-btn {
+      background: var(--white);
+      border: 1.5px solid var(--teal);
+      color: var(--teal);
+      border-radius: 50px;
+      padding: .3rem .75rem;
+      font-size: .78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .2s, color .2s;
+      font-family: inherit;
+    }
+
+    .quick-btn:hover {
+      background: var(--teal);
+      color: var(--white);
+    }
+
+    .chat-input-row {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .75rem 1rem;
+      border-top: 1px solid #e8e8e8;
+      background: var(--white);
+    }
+
+    .chat-input {
+      flex: 1;
+      border: 1.5px solid #ddd;
+      border-radius: 50px;
+      padding: .5rem 1rem;
+      font-size: .9rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color .2s;
+    }
+    .chat-input:focus { border-color: var(--teal); }
+
+    .chat-send {
+      background: var(--teal);
+      color: var(--white);
+      border: none;
+      border-radius: 50%;
+      width: 36px; height: 36px;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: background .2s;
+    }
+    .chat-send:hover { background: var(--teal-dk); }
+
+    @media (max-width: 640px) {
+      .chat-window {
+        left: .5rem;
+        right: .5rem;
+        width: auto;
+        bottom: 5rem;
+      }
+      .chat-fab { left: 1rem; bottom: 1rem; }
+    }
+
     /* ─── WHATSAPP FLOAT ─── */
     .wa-float {
       position: fixed;
@@ -919,6 +1141,39 @@
   <p style="margin-top:.5rem;font-size:.78rem;opacity:.5;">© 2026 BrightNest. Все права защищены.</p>
 </footer>
 
+<!-- ═══════════════════════════════ CHAT WIDGET ══════════════════════ -->
+<button class="chat-fab" id="chat-fab" aria-label="Открыть чат">
+  💬
+  <span class="chat-badge">1</span>
+</button>
+
+<div class="chat-window" id="chat-window">
+  <div class="chat-header">
+    <div class="chat-header-avatar">🌟</div>
+    <div class="chat-header-info">
+      <strong>BrightNest Ассистент</strong>
+      <span>Отвечу на любые вопросы</span>
+    </div>
+    <button class="chat-close" id="chat-close" aria-label="Закрыть">✕</button>
+  </div>
+
+  <div class="chat-messages" id="chat-messages"></div>
+
+  <div class="chat-quick-btns" id="quick-btns">
+    <button class="quick-btn" data-q="Какие программы есть?">📚 Программы</button>
+    <button class="quick-btn" data-q="Сколько стоят занятия?">💰 Цены</button>
+    <button class="quick-btn" data-q="Какой возраст принимаете?">👶 Возраст</button>
+    <button class="quick-btn" data-q="Где вы находитесь?">📍 Адрес</button>
+    <button class="quick-btn" data-q="Как записаться?">✍️ Запись</button>
+    <button class="quick-btn" data-q="Какие языки обучения?">🌍 Языки</button>
+  </div>
+
+  <div class="chat-input-row">
+    <input class="chat-input" id="chat-input" type="text" placeholder="Напишите вопрос..." maxlength="300" />
+    <button class="chat-send" id="chat-send" aria-label="Отправить">➤</button>
+  </div>
+</div>
+
 <!-- ═══════════════════════════════ WhatsApp FLOAT ════════════════════ -->
 <a class="wa-float" href="https://wa.me/77012220672" target="_blank" rel="noopener" aria-label="WhatsApp">
   <svg width="28" height="28" viewBox="0 0 32 32" fill="white" xmlns="http://www.w3.org/2000/svg">
@@ -968,6 +1223,156 @@
     successScreen.style.display = 'block';
     successScreen.scrollIntoView({ behavior: 'smooth', block: 'center' });
   });
+</script>
+
+<script>
+/* ═══════════════════ CHAT BOT ═══════════════════ */
+(function() {
+  const fab       = document.getElementById('chat-fab');
+  const win       = document.getElementById('chat-window');
+  const closeBtn  = document.getElementById('chat-close');
+  const messagesEl= document.getElementById('chat-messages');
+  const inputEl   = document.getElementById('chat-input');
+  const sendBtn   = document.getElementById('chat-send');
+  const quickBtns = document.querySelectorAll('.quick-btn');
+  const badge     = fab.querySelector('.chat-badge');
+
+  let opened = false;
+
+  /* ── Knowledge base ── */
+  const KB = [
+    {
+      keys: ['программ', 'направлен', 'курс', 'занятия', 'учи', 'что предлага'],
+      answer: `В BrightNest 6 направлений:\n\n📚 <b>Подготовка к школе</b> — на казахском и русском (5–7 лет)\n🇬🇧 <b>Английский язык</b> — через игры и диалоги (5–10 лет)\n⚡ <b>Скорочтение</b> — читаем в 3–5× быстрее (7–10 лет)\n✍️ <b>Каллиграфия</b> — красивый почерк (6–10 лет)\n🌙 <b>Продлёнка</b> — ДЗ под присмотром педагога (6–10 лет)\n\nХотите записаться на пробное занятие?`
+    },
+    {
+      keys: ['цен', 'стоит', 'стоимост', 'прайс', 'сколько', 'оплат', 'платить', 'тариф'],
+      answer: `Чтобы узнать актуальные цены, свяжитесь с нами:\n\n💬 <a href="https://wa.me/77012220672" target="_blank" style="color:var(--teal)">WhatsApp: +7 701 222 06 72</a>\n\nМы расскажем о стоимости и подберём удобный формат. Первое занятие — <b>бесплатно!</b>`
+    },
+    {
+      keys: ['возраст', 'лет', 'сколько лет', 'ребёнок', 'дети', 'принимаете'],
+      answer: `Мы принимаем детей от <b>5 до 10 лет</b>.\n\n• 5–7 лет — подготовка к школе\n• 5–10 лет — английский язык\n• 6–10 лет — каллиграфия, продлёнка\n• 7–10 лет — скорочтение\n\nЕсли сомневаетесь — приходите на бесплатную диагностику, педагог подберёт программу!`
+    },
+    {
+      keys: ['адрес', 'находитесь', 'где', 'расположен', 'астана', 'как доехать', 'местоположен', '2гис', 'карт'],
+      answer: `Мы находимся в <b>Астане, Казахстан</b>.\n\n📍 <a href="https://2gis.kz/astana/firm/70000001079801597" target="_blank" style="color:var(--teal)">Найти нас на 2ГИС</a>\n\nТочный адрес уточните по телефону:\n💬 <a href="https://wa.me/77012220672" target="_blank" style="color:var(--teal)">+7 701 222 06 72</a>`
+    },
+    {
+      keys: ['запис', 'записать', 'пробн', 'бесплатн', 'диагностик', 'попробовать', 'начать'],
+      answer: `Записаться на <b>бесплатное пробное занятие</b> очень просто!\n\n✍️ <a href="#signup" style="color:var(--teal)">Заполните форму на сайте</a>\n\nили напишите нам:\n💬 <a href="https://wa.me/77012220672" target="_blank" style="color:var(--teal)">WhatsApp: +7 701 222 06 72</a>\n\nМы свяжемся с вами и подберём удобное время.`
+    },
+    {
+      keys: ['язык', 'казахск', 'русск', 'обучен', 'на каком'],
+      answer: `Обучение ведётся на <b>двух языках</b>:\n\n🇰🇿 <b>Казахский</b> — подготовка к школе на казахском\n🇷🇺 <b>Русский</b> — подготовка к школе на русском\n🇬🇧 <b>Английский</b> — отдельное направление\n\nВы выбираете язык при записи на программу!`
+    },
+    {
+      keys: ['расписани', 'график', 'время', 'часы', 'когда', 'режим работ'],
+      answer: `Расписание занятий уточните у нас напрямую — группы формируются под удобное время.\n\n💬 <a href="https://wa.me/77012220672" target="_blank" style="color:var(--teal)">Написать в WhatsApp</a>\n📸 <a href="https://instagram.com/brightnest_astana" target="_blank" style="color:var(--teal)">Instagram @brightnest_astana</a>`
+    },
+    {
+      keys: ['педагог', 'учител', 'преподаватель', 'учит', 'квалифик', 'опыт'],
+      answer: `Наши педагоги — настоящие профессионалы своего дела 🏆\n\n• Любят детей и умеют делать учёбу интересной\n• Работают в малых группах — внимание каждому\n• Регулярно повышают квалификацию\n\nПриходите на пробное занятие и познакомьтесь лично!`
+    },
+    {
+      keys: ['группа', 'сколько детей', 'размер', 'малая'],
+      answer: `Мы работаем в <b>малых группах</b> — каждый ребёнок получает внимание педагога.\n\nЭто один из главных принципов BrightNest: не количество, а качество обучения.`
+    },
+    {
+      keys: ['instagram', 'инстаграм', 'соцсет', 'подписать', 'whatsapp', 'ватсап', 'контакт', 'телефон', 'связат'],
+      answer: `Наши контакты:\n\n💬 <a href="https://wa.me/77012220672" target="_blank" style="color:var(--teal)">WhatsApp: +7 701 222 06 72</a>\n📸 <a href="https://instagram.com/brightnest_astana" target="_blank" style="color:var(--teal)">Instagram: @brightnest_astana</a>\n📍 <a href="https://2gis.kz/astana/firm/70000001079801597" target="_blank" style="color:var(--teal)">Мы на 2ГИС</a>`
+    },
+    {
+      keys: ['привет', 'здравствуй', 'добрый', 'салем', 'сәлем', 'хай', 'hello'],
+      answer: `Привет! 👋 Рад вас видеть!\n\nЯ ассистент образовательного центра <b>BrightNest</b>. Могу ответить на вопросы о наших программах, ценах, расписании и записи.\n\nЧем могу помочь?`
+    },
+    {
+      keys: ['спасибо', 'благодар', 'рахмет', 'класс', 'отлично', 'хорошо', 'понял', 'понятно'],
+      answer: `Пожалуйста! 😊 Если появятся ещё вопросы — всегда рад помочь.\n\nНапомню: <b>первое занятие бесплатно!</b>\n💬 <a href="https://wa.me/77012220672" target="_blank" style="color:var(--teal)">Записаться в WhatsApp</a>`
+    },
+  ];
+
+  const FALLBACK = `Хороший вопрос! 🤔 К сожалению, я не могу ответить на него автоматически.\n\nСвяжитесь с нами напрямую — ответим быстро:\n💬 <a href="https://wa.me/77012220672" target="_blank" style="color:var(--teal)">WhatsApp: +7 701 222 06 72</a>\n📸 <a href="https://instagram.com/brightnest_astana" target="_blank" style="color:var(--teal)">Instagram: @brightnest_astana</a>`;
+
+  function findAnswer(text) {
+    const t = text.toLowerCase();
+    for (const item of KB) {
+      if (item.keys.some(k => t.includes(k))) return item.answer;
+    }
+    return FALLBACK;
+  }
+
+  function scrollBottom() {
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+  }
+
+  function addMsg(html, who) {
+    const el = document.createElement('div');
+    el.className = 'msg ' + who;
+    el.innerHTML = html.replace(/\n/g, '<br>');
+    messagesEl.appendChild(el);
+    scrollBottom();
+    return el;
+  }
+
+  function showTyping() {
+    const el = document.createElement('div');
+    el.className = 'msg typing';
+    el.id = 'typing-indicator';
+    el.innerHTML = '<div class="typing-dots"><span></span><span></span><span></span></div>';
+    messagesEl.appendChild(el);
+    scrollBottom();
+  }
+
+  function removeTyping() {
+    const el = document.getElementById('typing-indicator');
+    if (el) el.remove();
+  }
+
+  function botReply(userText) {
+    showTyping();
+    const delay = 600 + Math.random() * 600;
+    setTimeout(() => {
+      removeTyping();
+      addMsg(findAnswer(userText), 'bot');
+    }, delay);
+  }
+
+  function sendMessage(text) {
+    text = text.trim();
+    if (!text) return;
+    addMsg(text, 'user');
+    inputEl.value = '';
+    botReply(text);
+  }
+
+  /* ── Events ── */
+  fab.addEventListener('click', () => {
+    opened = !opened;
+    win.classList.toggle('open', opened);
+    badge.style.display = 'none';
+    if (opened && messagesEl.children.length === 0) {
+      setTimeout(() => {
+        addMsg('Привет! 👋 Я ассистент <b>BrightNest</b>.\nЗадайте любой вопрос или выберите тему ниже.', 'bot');
+      }, 300);
+    }
+    if (opened) inputEl.focus();
+  });
+
+  closeBtn.addEventListener('click', () => {
+    opened = false;
+    win.classList.remove('open');
+  });
+
+  sendBtn.addEventListener('click', () => sendMessage(inputEl.value));
+
+  inputEl.addEventListener('keydown', e => {
+    if (e.key === 'Enter') sendMessage(inputEl.value);
+  });
+
+  quickBtns.forEach(btn => {
+    btn.addEventListener('click', () => sendMessage(btn.dataset.q));
+  });
+})();
 </script>
 </body>
 </html>
